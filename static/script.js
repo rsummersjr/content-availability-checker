@@ -153,8 +153,177 @@ function displayPlatform(platformId, platformData) {
 function clearResults() {
     document.getElementById('track-name').value = '';
     document.getElementById('artist-name').value = '';
+    document.getElementById('bulk-input').value = '';
+    document.getElementById('results').classList.add('hidden');
+    document.getElementById('bulk-results').classList.add('hidden');
+    document.getElementById('error').classList.add('hidden');
+}
+
+// Mode switching
+function switchMode(mode) {
+    const singleForm = document.getElementById('single-search-form');
+    const bulkForm = document.getElementById('bulk-search-form');
+    const modeButtons = document.querySelectorAll('.mode-btn');
+
+    // Clear results when switching modes
+    clearResults();
+
+    if (mode === 'single') {
+        singleForm.classList.remove('hidden');
+        bulkForm.classList.add('hidden');
+        modeButtons[0].classList.add('active');
+        modeButtons[1].classList.remove('active');
+    } else {
+        singleForm.classList.add('hidden');
+        bulkForm.classList.remove('hidden');
+        modeButtons[0].classList.remove('active');
+        modeButtons[1].classList.add('active');
+    }
+}
+
+// Store bulk results for detailed view
+let bulkSearchResults = [];
+
+// Parse bulk input
+function parseBulkInput(input) {
+    const lines = input.split('\n').filter(line => line.trim());
+    const searches = [];
+
+    lines.forEach(line => {
+        const parts = line.split(',').map(p => p.trim());
+        if (parts.length >= 1 && parts[0]) {
+            searches.push({
+                track_name: parts[0],
+                artist_name: parts[1] || ''
+            });
+        }
+    });
+
+    return searches;
+}
+
+// Bulk search
+async function bulkSearchTracks() {
+    const bulkInput = document.getElementById('bulk-input').value.trim();
+
+    if (!bulkInput) {
+        alert('Please enter at least one track');
+        return;
+    }
+
+    const searches = parseBulkInput(bulkInput);
+
+    if (searches.length === 0) {
+        alert('No valid tracks found. Please check your format.');
+        return;
+    }
+
+    // Show loading
+    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById('loading-text').textContent = `Searching for ${searches.length} track(s) across platforms...`;
+    document.getElementById('bulk-results').classList.add('hidden');
     document.getElementById('results').classList.add('hidden');
     document.getElementById('error').classList.add('hidden');
+
+    try {
+        const response = await fetch('/bulk-search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                searches: searches
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Bulk search request failed');
+        }
+
+        const data = await response.json();
+        bulkSearchResults = data.results;
+        displayBulkResults(data);
+
+    } catch (error) {
+        document.getElementById('loading').classList.add('hidden');
+        const errorDiv = document.getElementById('error');
+        errorDiv.textContent = `Error: ${error.message}`;
+        errorDiv.classList.remove('hidden');
+    }
+}
+
+// Display bulk results in table
+function displayBulkResults(data) {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('bulk-results').classList.remove('hidden');
+
+    // Update count
+    document.getElementById('bulk-count').textContent = data.total;
+
+    // Build table
+    const tbody = document.getElementById('bulk-table-body');
+    tbody.innerHTML = '';
+
+    data.results.forEach((result, index) => {
+        const row = document.createElement('tr');
+
+        // Track name
+        const trackCell = document.createElement('td');
+        trackCell.textContent = result.query.track;
+        row.appendChild(trackCell);
+
+        // Artist name
+        const artistCell = document.createElement('td');
+        artistCell.textContent = result.query.artist;
+        row.appendChild(artistCell);
+
+        // Platform availability cells
+        const platforms = ['youtube_music', 'youtube', 'deezer', 'apple_music', 'amazon_music', 'tidal'];
+        platforms.forEach(platform => {
+            const cell = document.createElement('td');
+            const platformData = result.platforms[platform];
+
+            if (platformData.available) {
+                cell.innerHTML = '<span class="availability-yes">Yes</span>';
+            } else if (platformData.setup_required) {
+                cell.innerHTML = '<span class="availability-setup">Setup</span>';
+            } else {
+                cell.innerHTML = '<span class="availability-no">No</span>';
+            }
+
+            row.appendChild(cell);
+        });
+
+        // Details link
+        const detailsCell = document.createElement('td');
+        const detailsLink = document.createElement('a');
+        detailsLink.href = '#';
+        detailsLink.className = 'details-link';
+        detailsLink.textContent = 'View Details';
+        detailsLink.onclick = (e) => {
+            e.preventDefault();
+            showDetailedView(index);
+        };
+        detailsCell.appendChild(detailsLink);
+        row.appendChild(detailsCell);
+
+        tbody.appendChild(row);
+    });
+}
+
+// Show detailed view for a specific search from bulk results
+function showDetailedView(index) {
+    const result = bulkSearchResults[index];
+
+    // Hide bulk results, show detailed results
+    document.getElementById('bulk-results').classList.add('hidden');
+    document.getElementById('results').classList.remove('hidden');
+
+    // Scroll to results
+    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+
+    // Display the detailed results
+    displayResults(result);
 }
 
 // Allow Enter key to trigger search

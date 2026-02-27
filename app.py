@@ -25,15 +25,8 @@ tidal_client = TidalClient()
 def index():
     return render_template('index.html')
 
-@app.route('/search', methods=['POST'])
-def search():
-    data = request.json
-    track_name = data.get('track_name', '').strip()
-    artist_name = data.get('artist_name', '').strip()
-
-    if not track_name:
-        return jsonify({'error': 'Track name is required'}), 400
-
+def search_single_track(track_name, artist_name):
+    """Search for a single track across all platforms"""
     results = {
         'query': {
             'track': track_name,
@@ -59,7 +52,47 @@ def search():
     # Search Tidal
     results['platforms']['tidal'] = tidal_client.search(track_name, artist_name)
 
-    return jsonify(results)
+    return results
+
+@app.route('/search', methods=['POST'])
+def search():
+    data = request.json
+    track_name = data.get('track_name', '').strip()
+    artist_name = data.get('artist_name', '').strip()
+
+    if not track_name:
+        return jsonify({'error': 'Track name is required'}), 400
+
+    return jsonify(search_single_track(track_name, artist_name))
+
+@app.route('/bulk-search', methods=['POST'])
+def bulk_search():
+    data = request.json
+    searches = data.get('searches', [])
+
+    if not searches or not isinstance(searches, list):
+        return jsonify({'error': 'Searches array is required'}), 400
+
+    results = []
+
+    for idx, search_item in enumerate(searches):
+        track_name = search_item.get('track_name', '').strip()
+        artist_name = search_item.get('artist_name', '').strip()
+
+        if not track_name:
+            continue  # Skip empty entries
+
+        # Perform search for this track
+        search_result = search_single_track(track_name, artist_name)
+
+        # Add search ID for linking to detailed view
+        search_result['search_id'] = idx
+        results.append(search_result)
+
+    return jsonify({
+        'total': len(results),
+        'results': results
+    })
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5001))

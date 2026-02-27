@@ -284,3 +284,255 @@ button {
         grid-template-columns: 1fr;
     }
 }
+
+/* Search Mode Toggle */
+.search-mode-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.mode-btn {
+    padding: 10px 20px;
+    background: transparent;
+    color: #666;
+    border: none;
+    border-bottom: 3px solid transparent;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.mode-btn:hover {
+    color: #667eea;
+}
+
+.mode-btn.active {
+    color: #667eea;
+    border-bottom-color: #667eea;
+}
+
+/* Bulk Search Form */
+.form-group textarea {
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: monospace;
+    resize: vertical;
+    min-height: 200px;
+    transition: border-color 0.3s;
+}
+
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.bulk-info {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #667eea;
+}
+
+.bulk-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+#bulk-search-btn, #bulk-clear-btn {
+    padding: 12px 24px;
+}
+
+#bulk-search-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+#bulk-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+#bulk-clear-btn {
+    background: #f0f0f0;
+    color: #333;
+}
+
+#bulk-clear-btn:hover {
+    background: #e0e0e0;
+}
+
+/* Bulk Results */
+.bulk-results {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+.bulk-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.bulk-header h2 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.bulk-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Results Table */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 0.9rem;
+}
+
+.results-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.results-table thead th {
+    padding: 15px 10px;
+    text-align: left;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.results-table tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s;
+}
+
+.results-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.results-table tbody td {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+.results-table tbody td:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+.results-table tbody td:nth-child(2) {
+    color: #666;
+}
+
+/* Availability Badges */
+.availability-yes {
+    display: inline-block;
+    background: #10b981;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.availability-no {
+    display: inline-block;
+    background: #ef4444;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.availability-setup {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Details Link */
+.details-link {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #667eea;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.details-link:hover {
+    background: #764ba2;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .search-mode-toggle {
+        flex-direction: column;
+    }
+
+    .mode-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .table-container {
+        max-width: 100%;
+    }
+
+    .results-table {
+        font-size: 0.8rem;
+    }
+
+    .results-table thead th,
+    .results-table tbody td {
+        padding: 8px 5px;
+    }
+
+    .availability-yes,
+    .availability-no,
+    .availability-setup {
+        padding: 3px 8px;
+        font-size: 0.75rem;
+    }
+
+    .details-link {
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+}

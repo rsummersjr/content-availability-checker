@@ -14,7 +14,14 @@
         </header>
 
         <div class="search-section">
-            <div class="search-form">
+            <!-- Search Mode Toggle -->
+            <div class="search-mode-toggle">
+                <button class="mode-btn active" onclick="switchMode('single')">Single Search</button>
+                <button class="mode-btn" onclick="switchMode('bulk')">Bulk Search</button>
+            </div>
+
+            <!-- Single Search Form -->
+            <div id="single-search-form" class="search-form">
                 <div class="form-group">
                     <label for="track-name">Track Name *</label>
                     <input type="text" id="track-name" placeholder="e.g., Bohemian Rhapsody" required>
@@ -29,9 +36,25 @@
                 <button id="clear-btn" onclick="clearResults()">Clear</button>
             </div>
 
+            <!-- Bulk Search Form -->
+            <div id="bulk-search-form" class="search-form hidden">
+                <div class="form-group">
+                    <label for="bulk-input">Enter tracks (one per line)</label>
+                    <textarea id="bulk-input" rows="10" placeholder="Format: Track Name, Artist Name&#10;&#10;Example:&#10;Bohemian Rhapsody, Queen&#10;Billie Jean, Michael Jackson&#10;Imagine, John Lennon"></textarea>
+                </div>
+
+                <div class="bulk-info">
+                    <p>💡 Enter one track per line in format: <strong>Track Name, Artist Name</strong></p>
+                    <p>Artist name is optional. You can also just enter track names.</p>
+                </div>
+
+                <button id="bulk-search-btn" onclick="bulkSearchTracks()">Search All</button>
+                <button id="bulk-clear-btn" onclick="clearResults()">Clear</button>
+            </div>
+
             <div id="loading" class="loading hidden">
                 <div class="spinner"></div>
-                <p>Searching across platforms...</p>
+                <p id="loading-text">Searching across platforms...</p>
             </div>
         </div>
 
@@ -96,6 +119,35 @@
                     </div>
                     <div class="platform-content"></div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Bulk Search Results -->
+        <div id="bulk-results" class="bulk-results hidden">
+            <div class="bulk-header">
+                <h2>Bulk Search Results</h2>
+                <p>Found <strong id="bulk-count">0</strong> track(s)</p>
+            </div>
+
+            <div class="table-container">
+                <table id="bulk-table" class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Track</th>
+                            <th>Artist</th>
+                            <th>YouTube Music</th>
+                            <th>YouTube</th>
+                            <th>Deezer</th>
+                            <th>Apple Music</th>
+                            <th>Amazon Music</th>
+                            <th>Tidal</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bulk-table-body">
+                        <!-- Results will be inserted here -->
+                    </tbody>
+                </table>
             </div>
         </div>
 

@@ -13,13 +13,25 @@ A web application that allows you to search for music tracks and check their ava
 
 ## Features
 
+### Single Search
 - Search by track name only
 - Search by track name AND artist name for more accurate results
 - Real-time search across multiple platforms
 - Display track details including artist, album, publication date, and direct links
 - Shows the original publication/release date for each track on each platform
+
+### Bulk Search (NEW!)
+- Search multiple tracks at once
+- Enter tracks in simple format: "Track Name, Artist Name" (one per line)
+- Get a summary table showing availability across all platforms
+- Yes/No indicators for each platform
+- Click "View Details" to see full results for any track
+- Perfect for comparing multiple songs or building playlists
+
+### General
 - Beautiful, responsive UI
 - Handles API errors gracefully
+- Mobile-friendly design
 
 ## Installation
 
