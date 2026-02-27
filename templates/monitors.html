@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Monitors - Music Track Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='monitors.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔔 Content Monitors</h1>
+            <p>Track availability changes across streaming platforms</p>
+            <div class="header-nav">
+                <a href="/" class="nav-link">← Back to Search</a>
+            </div>
+        </header>
+
+        <!-- Create Monitor Section -->
+        <div class="create-monitor-section">
+            <h2>Create New Monitor</h2>
+
+            <div class="monitor-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="monitor-track">Track Name *</label>
+                        <input type="text" id="monitor-track" placeholder="e.g., Bohemian Rhapsody" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="monitor-artist">Artist Name (optional)</label>
+                        <input type="text" id="monitor-artist" placeholder="e.g., Queen">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="monitor-frequency">Check Frequency (hours)</label>
+                        <select id="monitor-frequency">
+                            <option value="1">Every hour</option>
+                            <option value="3">Every 3 hours</option>
+                            <option value="6" selected>Every 6 hours</option>
+                            <option value="12">Every 12 hours</option>
+                            <option value="24">Every 24 hours</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="monitor-country">Country</label>
+                        <select id="monitor-country">
+                            <option value="US" selected>United States</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="CA">Canada</option>
+                            <option value="AU">Australia</option>
+                            <option value="DE">Germany</option>
+                            <option value="FR">France</option>
+                            <option value="JP">Japan</option>
+                            <option value="BR">Brazil</option>
+                            <option value="IN">India</option>
+                            <option value="MX">Mexico</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="monitor-notify">
+                        Enable email notifications
+                    </label>
+                </div>
+
+                <div class="form-group" id="email-group" style="display: none;">
+                    <label for="monitor-email">Email Address *</label>
+                    <input type="email" id="monitor-email" placeholder="your@email.com">
+                </div>
+
+                <div class="form-actions">
+                    <button onclick="createMonitor()" class="btn-primary">Create Monitor</button>
+                    <button onclick="clearMonitorForm()" class="btn-secondary">Clear</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Monitors Section -->
+        <div class="monitors-list-section">
+            <div class="section-header">
+                <h2>Active Monitors</h2>
+                <button onclick="loadMonitors()" class="btn-refresh">🔄 Refresh</button>
+            </div>
+
+            <div id="monitors-loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Loading monitors...</p>
+            </div>
+
+            <div id="monitors-container">
+                <p class="empty-state">No monitors created yet. Create one above to get started!</p>
+            </div>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+        <div id="success" class="success hidden"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='monitors.js') }}"></script>
+</body>
+</html>

@@ -20,7 +20,7 @@ A web application that allows you to search for music tracks and check their ava
 - Display track details including artist, album, publication date, and direct links
 - Shows the original publication/release date for each track on each platform
 
-### Bulk Search (NEW!)
+### Bulk Search
 - Search multiple tracks at once
 - Enter tracks in simple format: "Track Name, Artist Name" (one per line)
 - Get a summary table showing availability across all platforms
@@ -28,10 +28,24 @@ A web application that allows you to search for music tracks and check their ava
 - Click "View Details" to see full results for any track
 - Perfect for comparing multiple songs or building playlists
 
+### Content Monitoring (NEW!)
+- **Automated tracking** - Monitor specific tracks for availability changes
+- **Email notifications** - Get alerted when content becomes available or unavailable
+- **Country-specific** - Track availability in different regions
+- **Custom frequency** - Check every 1, 3, 6, 12, or 24 hours
+- **Change history** - View historical availability data
+- **Pause/Resume** - Control monitors without deleting them
+- **Perfect for:**
+  - Tracking new releases
+  - Monitoring geo-restrictions
+  - Detecting content removal
+  - Research and analysis
+
 ### General
 - Beautiful, responsive UI
 - Handles API errors gracefully
 - Mobile-friendly design
+- Background job scheduler for automated monitoring
 
 ## Installation
 
