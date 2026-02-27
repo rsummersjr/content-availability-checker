@@ -29,9 +29,10 @@ A web application that allows you to search for music tracks and check their ava
 - Perfect for comparing multiple songs or building playlists
 
 ### Content Monitoring (NEW!)
+- **Quick monitor button** - Create monitors directly from search results
 - **Automated tracking** - Monitor specific tracks for availability changes
 - **Email notifications** - Get alerted when content becomes available or unavailable
-- **Country-specific** - Track availability in different regions
+- **Country-specific** - Track availability in 11 regions (US, GB, CA, AU, DE, FR, JP, BR, IN, MX, TR)
 - **Custom frequency** - Check every 1, 3, 6, 12, or 24 hours
 - **Change history** - View historical availability data
 - **Pause/Resume** - Control monitors without deleting them

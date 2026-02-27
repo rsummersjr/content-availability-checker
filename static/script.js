@@ -338,3 +338,125 @@ document.getElementById('artist-name').addEventListener('keypress', function(e) 
         searchTrack();
     }
 });
+
+// Monitor Modal Functions
+let currentTrackName = '';
+let currentArtistName = '';
+
+function showMonitorModal() {
+    const trackName = document.getElementById('result-track').textContent;
+    const artistName = document.getElementById('result-artist').textContent;
+
+    currentTrackName = trackName;
+    currentArtistName = artistName;
+
+    document.getElementById('modal-track').textContent = trackName;
+    document.getElementById('modal-artist').textContent = artistName;
+
+    document.getElementById('monitor-modal').classList.remove('hidden');
+}
+
+function closeMonitorModal() {
+    document.getElementById('monitor-modal').classList.add('hidden');
+    // Reset form
+    document.getElementById('modal-frequency').value = '6';
+    document.getElementById('modal-country').value = 'US';
+    document.getElementById('modal-notify').checked = false;
+    document.getElementById('modal-email').value = '';
+    document.getElementById('modal-email-group').style.display = 'none';
+}
+
+// Toggle email input in modal
+document.addEventListener('DOMContentLoaded', function() {
+    const modalNotify = document.getElementById('modal-notify');
+    if (modalNotify) {
+        modalNotify.addEventListener('change', function() {
+            const emailGroup = document.getElementById('modal-email-group');
+            if (this.checked) {
+                emailGroup.style.display = 'block';
+            } else {
+                emailGroup.style.display = 'none';
+            }
+        });
+    }
+});
+
+async function createMonitorFromModal() {
+    const frequency = parseInt(document.getElementById('modal-frequency').value);
+    const country = document.getElementById('modal-country').value;
+    const emailNotify = document.getElementById('modal-notify').checked;
+    const emailAddress = document.getElementById('modal-email').value.trim();
+
+    // Validation
+    if (emailNotify && !emailAddress) {
+        showToast('Please enter an email address for notifications', 'error');
+        return;
+    }
+
+    if (emailNotify && !isValidEmail(emailAddress)) {
+        showToast('Please enter a valid email address', 'error');
+        return;
+    }
+
+    try {
+        const response = await fetch('/monitors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                track_name: currentTrackName,
+                artist_name: currentArtistName === 'Not specified' ? '' : currentArtistName,
+                check_frequency_hours: frequency,
+                email_notify: emailNotify,
+                email_address: emailAddress,
+                country_code: country
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to create monitor');
+        }
+
+        const data = await response.json();
+        closeMonitorModal();
+        showToast('✅ Monitor created successfully! Check will start automatically.', 'success');
+
+    } catch (error) {
+        showToast('❌ ' + error.message, 'error');
+    }
+}
+
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('success-toast');
+    toast.textContent = message;
+    toast.style.background = type === 'success' ? '#10b981' : '#ef4444';
+    toast.classList.remove('hidden');
+
+    setTimeout(() => {
+        toast.classList.add('hidden');
+    }, 5000);
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', function(event) {
+    const modal = document.getElementById('monitor-modal');
+    if (event.target === modal) {
+        closeMonitorModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('monitor-modal');
+        if (!modal.classList.contains('hidden')) {
+            closeMonitorModal();
+        }
+    }
+});

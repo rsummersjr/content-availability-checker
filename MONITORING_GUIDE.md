@@ -17,7 +17,22 @@ The monitoring feature allows you to:
 
 ## 🚀 Quick Start
 
-### Step 1: Access Monitors
+### Method 1: Quick Monitor (From Search Results)
+
+After searching for a track:
+
+1. **Search for a track** on the main page
+2. **View the results**
+3. Click **"🔔 Monitor This Track"** button
+4. **Configure monitoring** in the popup:
+   - Check frequency (1-24 hours)
+   - Country selection
+   - Email notifications (optional)
+5. Click **"Create Monitor"**
+
+That's it! Monitor is active immediately.
+
+### Method 2: Monitors Page
 
 Click **"🔔 Manage Monitors"** from the main search page.
 
@@ -122,6 +137,7 @@ Music availability varies by region due to:
 - 🇧🇷 **Brazil** (BR)
 - 🇮🇳 **India** (IN)
 - 🇲🇽 **Mexico** (MX)
+- 🇹🇷 **Turkey** (TR)
 
 ### How It Works:
 
