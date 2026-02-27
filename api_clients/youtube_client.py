@@ -58,12 +58,12 @@ class YouTubeClient:
             return {
                 'youtube_music': {
                     'available': len(youtube_music_results) > 0,
-                    'results': youtube_music_results[:3],
+                    'results': youtube_music_results,
                     'count': len(youtube_music_results)
                 },
                 'youtube': {
                     'available': len(youtube_results) > 0,
-                    'results': youtube_results[:3],
+                    'results': youtube_results,
                     'count': len(youtube_results)
                 }
             }

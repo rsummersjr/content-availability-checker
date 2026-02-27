@@ -198,6 +198,27 @@ button {
 
 .platform-content {
     color: #666;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.platform-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.platform-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.platform-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.platform-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .track-result {

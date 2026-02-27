@@ -48,7 +48,7 @@ class AppleMusicClient:
 
             return {
                 'available': len(results) > 0,
-                'results': results[:3],
+                'results': results,
                 'count': len(results)
             }
 
