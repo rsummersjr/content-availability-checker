@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Track Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎵 Music Track Finder</h1>
+            <p>Search for music tracks across multiple streaming platforms</p>
+        </header>
+
+        <div class="search-section">
+            <div class="search-form">
+                <div class="form-group">
+                    <label for="track-name">Track Name *</label>
+                    <input type="text" id="track-name" placeholder="e.g., Bohemian Rhapsody" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="artist-name">Artist Name (optional)</label>
+                    <input type="text" id="artist-name" placeholder="e.g., Queen">
+                </div>
+
+                <button id="search-btn" onclick="searchTrack()">Search</button>
+                <button id="clear-btn" onclick="clearResults()">Clear</button>
+            </div>
+
+            <div id="loading" class="loading hidden">
+                <div class="spinner"></div>
+                <p>Searching across platforms...</p>
+            </div>
+        </div>
+
+        <div id="results" class="results hidden">
+            <div class="query-info">
+                <h2>Search Results</h2>
+                <p>Track: <strong id="result-track"></strong></p>
+                <p>Artist: <strong id="result-artist"></strong></p>
+            </div>
+
+            <div class="platforms">
+                <!-- YouTube Music -->
+                <div class="platform-card" id="youtube-music-card">
+                    <div class="platform-header">
+                        <h3>YouTube Music</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+
+                <!-- YouTube -->
+                <div class="platform-card" id="youtube-card">
+                    <div class="platform-header">
+                        <h3>YouTube</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+
+                <!-- Deezer -->
+                <div class="platform-card" id="deezer-card">
+                    <div class="platform-header">
+                        <h3>Deezer</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+
+                <!-- Apple Music -->
+                <div class="platform-card" id="apple-music-card">
+                    <div class="platform-header">
+                        <h3>Apple Music</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+
+                <!-- Amazon Music -->
+                <div class="platform-card" id="amazon-music-card">
+                    <div class="platform-header">
+                        <h3>Amazon Music</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+
+                <!-- Tidal -->
+                <div class="platform-card" id="tidal-card">
+                    <div class="platform-header">
+                        <h3>Tidal</h3>
+                        <span class="status-badge"></span>
+                    </div>
+                    <div class="platform-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="error" class="error hidden"></div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

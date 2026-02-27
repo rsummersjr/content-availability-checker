@@ -1,0 +1,37 @@
+Subject: New Tool: Music Track Finder - Search Across Streaming Platforms
+
+Hi team,
+
+I've set up a new internal tool that lets you search for music tracks across multiple streaming platforms in one place!
+
+🎵 WHAT IT DOES:
+• Search for any music track by name (and optionally artist)
+• Instantly see if it's available on YouTube, YouTube Music, Deezer, Apple Music, Amazon Music, and Tidal
+• View publication/release dates for each track
+• Get direct links to open tracks on each platform
+
+🌐 HOW TO ACCESS:
+Simply open this URL in your browser:
+http://192.168.86.25:5001
+
+(Must be on company network)
+
+📖 HOW TO USE:
+1. Enter a track name (e.g., "Bohemian Rhapsody")
+2. Optionally add artist name (e.g., "Queen")
+3. Click "Search"
+4. View results from all platforms!
+
+✅ CURRENTLY WORKING:
+• YouTube Music (with upload dates)
+• YouTube (with upload dates)
+• Deezer (with release dates)
+• Manual search links for Apple Music, Amazon Music, and Tidal
+
+⚠️ AVAILABILITY:
+This tool is available when my computer is on and connected to the network. If you can't access it, please reach out.
+
+Questions? Feel free to ask!
+
+Best,
+[Your Name]

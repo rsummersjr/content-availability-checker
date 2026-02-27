@@ -1,0 +1,13 @@
+# Files to exclude from Heroku slug
+*.md
+!README.md
+.git
+.gitignore
+*.sh
+venv/
+.env
+.DS_Store
+__pycache__/
+*.pyc
+.vscode/
+.idea/
